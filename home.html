@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --admin-color: #6f42c1;
+            --success: #28a745;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --history-green: #2d5a27;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid #222;
+        }
+
+        .sidebar a:hover { color: #f1f1f1; background: #2d5a27; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; }
+        .sidebar-title { color: white; text-align: center; font-weight: bold; margin-bottom: 20px; }
+
+        .fachada {
+            width: 100%;
+            background-color: var(--history-green);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border-bottom: 5px solid #1e3d1a;
+        }
+
+        .fachada h1 { margin: 0; font-size: 3rem; letter-spacing: 4px; text-transform: uppercase; font-family: 'Georgia', serif; }
+        
+
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e9ecef; display: flex; flex-direction: column; align-items: center; padding: 0; margin: 0; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 600px; margin-bottom: 20px; }
+        
+        .admin-section { border: 2px solid var(--admin-color); background: #f3e5f5; display: none; }
+        .badge-admin { background: var(--admin-color); color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; margin-bottom: 10px; display: inline-block; }
+        
+        .input-group { display: flex; flex-direction: column; gap: 10px; }
+        input, select, textarea { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        
+        button { padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-admin { background-color: var(--admin-color); color: white; width: 100%; }
+        .btn-user { background-color: var(--success); color: white; width: 100%; }
+
+        .card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
+        .card-admin { border-left: 8px solid var(--admin-color); }
+        .card-user { border-left: 8px solid var(--success); }
+        
+        .media-content { width: 100%; max-height: 300px; border-radius: 5px; margin: 10px 0; object-fit: cover; }
+        .news-link { color: var(--primary); font-weight: bold; text-decoration: none; display: block; margin-top: 5px; }
+        
+        #loginScreen { display: block; margin-top: 20px; }
+        #appScreen { display: none; width: 100%; max-width: 800px; padding: 20px; }
+        .header { display: flex; justify-content: space-between; width: 100%; margin-bottom: 20px; align-items: center; }
+        .actions { margin-top: 10px; display: flex; gap: 10px; }
+        .btn-action { background: none; font-size: 12px; text-decoration: underline; padding: 0; width: auto; }
+        .filter-info { background: #fff; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center; font-weight: bold; color: var(--history-green); border: 1px solid var(--history-green); }
+    </style>
+</head>
+<body>
+
+
+
+
+    <div id="main">
+        <span class="menu-btn" onclick="openNav()">&#9776; SALAS</span>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+      <a href="home.html">🏠 Home (Todas)</a>
+      <a href="3-B.html">Turma 3-B</a>
+      <a href="3-A.html">Turma 3-A</a>
+      <a href="2-B.html">Turma 2-B</a>
+      <a href="2-A.html">Turma 2-A</a>
+      <a href="1-B.html">Turma 1-B</a>
+      <a href="1-A.html">Turma 1-A</a>
+      <a href="9-B.html">Turma 9-B</a>
+      <a href="9-A.html">Turma 9-A</a>
+
+
+    </div>
+
+    
+
+    <header class="fachada">
+        <h1>SITE DE HISTÓRIA</h1>
+        <h5> ESTÁ PARTE É PARA ADMINISTRADORES, ALUNOS CLIQUEM NO MENU SALAS PARA FAZEREM AS DEVIDAS POSTAGENS</h5>
+    </header>
+
+
+    <div id="loginScreen" class="container">
+        <h2 style="text-align: center;">Login do Sistema</h2>
+        <div class="input-group">
+            <input type="text" id="nameInput" placeholder="Nome Completo">
+            <input type="email" id="emailInput" placeholder="E-mail">
+            <input type="password" id="passInput" placeholder="Senha">
+            <button class="btn-user" onclick="tentarLogin()">Entrar</button>
+        </div>
+    </div>
+
+    <div id="appScreen">
+        <div class="header">
+            <div>
+                <span>Bem-vindo, <strong id="userName"></strong></span>
+                <div id="userRole"></div>
+            </div>
+            <button onclick="logout()" style="background:var(--danger); color:white;">Sair</button>
+        </div>
+
+        <div id="adminPanel" class="container admin-section">
+            <span class="badge-admin">PAINEL DE CONTROLE - APENAS ADM</span>
+            <h3>Postar Notícia Oficial</h3>
+            <div class="input-group">
+                <select id="newsTurma">
+                    <option value="GERAL">Para todas as turmas</option>
+                    <option value="9-A">9-A</option><option value="9-B">9-B</option>
+                    <option value="1-A">1-A</option><option value="1-B">1-B</option>
+                    <option value="2-A">2-A</option><option value="2-B">2-B</option>
+                    <option value="3-A">3-A</option><option value="3-B">3-B</option>
+                </select>
+                <input type="text" id="newsTitle" placeholder="Título da Notícia/Aviso">
+                <textarea id="newsContent" placeholder="Conteúdo da notícia..."></textarea>
+                <input type="url" id="newsUrl" placeholder="Link externo (opcional)">
+                <input type="file" id="newsFile" accept="image/*,video/*">
+                <button class="btn-admin" onclick="postarNoticia()">Publicar Oficialmente</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <h3>Minhas Atividades</h3>
+            <div class="input-group">
+                <select id="taskTurma">
+                    <option value="9-A">Turma 9-A</option><option value="9-B">9-B</option>
+                    <option value="1-A">1-A</option><option value="1-B">1-B</option>
+                    <option value="2-A">2-A</option><option value="2-B">2-B</option>
+                    <option value="3-A">3-A</option><option value="3-B">3-B</option>
+                </select>
+                <input type="text" id="taskText" placeholder="Descrição da atividade">
+                <input type="file" id="taskFile">
+                <button class="btn-user" onclick="postarAtividade()">Postar Atividade</button>
+            </div>
+        </div>
+
+        <div style="width: 100%;">
+            <div id="filtroAtivo" class="filter-info" style="display:none;"></div>
+            <h3>Mural Geral</h3>
+            <div id="mural"></div>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_DATA = { email: "paulootaviopintoabreu@gmail.com", pass: "PauloeClaudia@maceio2025", nome: "Paulo Otávio" };
+        let user = null;
+        let filtroTurmaAtual = 'TODAS';
+
+        function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+
+        function checarParametrosURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const salaDaUrl = urlParams.get('sala');
+            if (salaDaUrl) {
+                filtroTurmaAtual = salaDaUrl;
+                const banner = document.getElementById('filtroAtivo');
+                banner.style.display = 'block';
+                banner.innerText = "📍 Você está na Sala: " + salaDaUrl;
+                if(document.getElementById('taskTurma')) document.getElementById('taskTurma').value = salaDaUrl;
+            }
+        }
+
+        // Função de Login com Validação de E-mail (@ e .com)
+        function tentarLogin() {
+            const email = document.getElementById('emailInput').value.trim();
+            const pass = document.getElementById('passInput').value;
+            const nome = document.getElementById('nameInput').value.trim();
+
+            // Regex para validar e-mail: algo@algo.com (ou .br, etc)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                return alert("Por favor, insira um e-mail válido (contendo @ e .com)");
+            }
+
+            if(email === ADMIN_DATA.email && pass === ADMIN_DATA.pass) {
+                user = { nome: ADMIN_DATA.nome, role: 'admin', email: email };
+            } else {
+                if(!nome) return alert("Por favor, preencha seu nome completo!");
+                user = { nome: nome, role: 'user', email: email };
+            }
+            
+            sessionStorage.setItem('sessao', JSON.stringify(user));
+            render();
+        }
+
+        function render() {
+            user = JSON.parse(sessionStorage.getItem('sessao'));
+            if(!user) return;
+            checarParametrosURL();
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('appScreen').style.display = 'block';
+            document.getElementById('userName').innerText = user.nome;
+            document.getElementById('userRole').innerText = user.role === 'admin' ? "🛡️ Administrador" : "👤 Usuário";
+            if(user.role === 'admin') document.getElementById('adminPanel').style.display = 'block';
+            carregarMural();
+        }
+
+        async function postarNoticia() {
+            const file = document.getElementById('newsFile').files[0];
+            const noticia = {
+                id: Date.now(),
+                tipo: 'NOTICIA',
+                turma: document.getElementById('newsTurma').value,
+                autor: user.nome,
+                emailAutor: user.email,
+                titulo: document.getElementById('newsTitle').value,
+                texto: document.getElementById('newsContent').value,
+                link: document.getElementById('newsUrl').value,
+                midia: file ? await toBase64(file) : null,
+                midiaTipo: file ? file.type : null
+            };
+            salvarNoDb(noticia);
+            limparCamposAdmin();
+            carregarMural();
+        }
+
+        async function postarAtividade() {
+            const file = document.getElementById('taskFile').files[0];
+            if(!file) return alert("Anexe um arquivo!");
+            const atividade = {
+                id: Date.now(),
+                tipo: 'ATIVIDADE',
+                turma: document.getElementById('taskTurma').value,
+                autor: user.nome,
+                emailAutor: user.email,
+                texto: document.getElementById('taskText').value,
+                midia: await toBase64(file),
+                midiaTipo: file.type,
+                nomeArquivo: file.name
+            };
+            salvarNoDb(atividade);
+            document.getElementById('taskText').value = "";
+            document.getElementById('taskFile').value = "";
+            carregarMural();
+        }
+
+        function salvarNoDb(item) {
+            let db = JSON.parse(localStorage.getItem('db_mural_v4')) || [];
+            db.push(item);
+            localStorage.setItem('db_mural_v4', JSON.stringify(db));
+        }
+
+        function carregarMural() {
+            const mural = document.getElementById('mural');
+            mural.innerHTML = "";
+            let db = JSON.parse(localStorage.getItem('db_mural_v4')) || [];
+            let dadosFiltrados = db;
+            if(filtroTurmaAtual !== 'TODAS') {
+                dadosFiltrados = db.filter(item => item.turma === filtroTurmaAtual || item.turma === 'GERAL');
+            }
+            dadosFiltrados.slice().reverse().forEach(item => {
+                const div = document.createElement('div');
+                const isNoticia = item.tipo === 'NOTICIA';
+                div.className = `card ${isNoticia ? 'card-admin' : 'card-user'}`;
+                let htmlMidia = "";
+                if(item.midia) {
+                    if(item.midiaTipo.includes('image')) htmlMidia = `<img src="${item.midia}" class="media-content">`;
+                    else if(item.midiaTipo.includes('video')) htmlMidia = `<video src="${item.midia}" controls class="media-content"></video>`;
+                }
+                const ehDono = item.emailAutor === user.email;
+                const ehAdmin = user.role === 'admin';
+                const podeAcao = ehDono || ehAdmin;
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between;">
+                        ${isNoticia ? '<span class="badge-admin">NOTÍCIA OFICIAL</span>' : `<span style="font-size:10px; background:#ddd; padding:2px 5px; border-radius:3px;">TURMA: ${item.turma}</span>`}
+                    </div>
+                    <small>Postado por: <strong>${item.autor}</strong></small>
+                    ${item.titulo ? `<h4>${item.titulo}</h4>` : ''}
+                    <p>${item.texto}</p>
+                    ${item.link ? `<a href="${item.link}" target="_blank" class="news-link">🔗 Acessar Link</a>` : ''}
+                    ${htmlMidia}
+                    ${!isNoticia ? `<small style="display:block;">📁 Arquivo: ${item.nomeArquivo}</small>` : ''}
+                    <div class="actions">
+                        ${podeAcao ? `<button class="btn-action" style="color:blue;" onclick="editar(${item.id})">Editar Texto</button>` : ''}
+                        ${podeAcao ? `<button class="btn-action" style="color:red;" onclick="excluir(${item.id})">Excluir</button>` : ''}
+                    </div>
+                `;
+                mural.appendChild(div);
+            });
+        }
+
+        function editar(id) {
+            let db = JSON.parse(localStorage.getItem('db_mural_v4')) || [];
+            const index = db.findIndex(i => i.id === id);
+            const item = db[index];
+            if (item.emailAutor !== user.email && user.role !== 'admin') return alert("Sem permissão.");
+            const novoTexto = prompt("Edite o conteúdo:", item.texto);
+            if (novoTexto) {
+                db[index].texto = novoTexto;
+                localStorage.setItem('db_mural_v4', JSON.stringify(db));
+                carregarMural();
+            }
+        }
+
+        function excluir(id) {
+            if(!confirm("Excluir postagem?")) return;
+            let db = JSON.parse(localStorage.getItem('db_mural_v4')) || [];
+            db = db.filter(i => i.id !== id);
+            localStorage.setItem('db_mural_v4', JSON.stringify(db));
+            carregarMural();
+        }
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        function limparCamposAdmin() {
+            document.getElementById('newsTitle').value = "";
+            document.getElementById('newsContent').value = "";
+            document.getElementById('newsUrl').value = "";
+            document.getElementById('newsFile').value = "";
+        }
+
+        function logout() { sessionStorage.clear(); window.location.href = 'home.html'; }
+        
+        window.onload = () => {
+            if(sessionStorage.getItem('sessao')) render();
+        };
+
+        
+    </script>
+</body>
+</html>
